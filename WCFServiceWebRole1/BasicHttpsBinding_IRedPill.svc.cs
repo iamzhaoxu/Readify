@@ -47,29 +47,73 @@ namespace WCFServiceWebRole1
 
         public long FibonacciNumber(long n)
         {
-            n = Math.Abs(n);
+            long unsignN = Math.Abs(n);
             long result = 0;
-            if (n <= 1)
+            if (unsignN <= 1)
             {
-                result = n;
+                result = unsignN;
+            }
+            else if(unsignN > 92)
+            {
+                ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException("n", String.Format("Fib({0}{1}) will cause a 64-bit integer overflow.", n > 0 ? ">" : "<", 92));
+                throw new FaultException<ArgumentOutOfRangeException>(ex, ex.Message);
             }
             else
             {
-                long c = n - 1;
+                long c = unsignN - 1;
                 long a = 0;
                 long b = 1;
                 for (long i = 0; i < c; i++)
                 {
-                    if (long.MaxValue - a < b)
-                    {
-                        throw new ArgumentOutOfRangeException("n", String.Format("Fib(>{0}) will cause a 64-bit integer overflow.", n));
-                    }
                     result = b + a;
                     a = b;
                     b = result;
                 }
             }
+
+            if (n < 0 && unsignN % 2 == 0)
+            {
+                result = -result;
+            }
+
             return result;
+        }
+
+
+        public string ReverseWords(string s)
+        {
+            if (s == null)
+            {
+                ArgumentNullException ex = new ArgumentNullException("s", "Value cannot be null.");
+                throw new FaultException<ArgumentNullException>(ex, ex.Message);
+            }
+
+            StringBuilder buidler = new StringBuilder();
+            Stack<char> wordStack = new Stack<char>();
+            char[] array = s.ToCharArray();
+
+            foreach(char c in array)
+            {
+                if (Char.IsWhiteSpace(c))
+                {
+                    while(wordStack.Count > 0)
+                    {
+                        buidler.Append(wordStack.Pop());
+                    }
+                    buidler.Append(c);
+                }
+                else
+                {
+                    wordStack.Push(c);
+                }
+            }
+
+            while (wordStack.Count > 0)
+            {
+                buidler.Append(wordStack.Pop());
+            }
+
+            return buidler.ToString();
         }
     }
 }
