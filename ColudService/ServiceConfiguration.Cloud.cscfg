@@ -5,5 +5,10 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=redifysotrage;AccountKey=G1s+F8RqB5ibOlW6BU0Njd0w+jnBBS5IWY9TyIia6BfXOiSsy3hfgFcVCwzI2VIN6HXP0JMmvaat/eP7cYc2hA==" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SampleCertificate"
+          thumbprint="1d069bec7db40f8e40c5ac8d8da05279fc9a7011"
+          thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

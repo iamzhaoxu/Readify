@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="ColudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2014-01.2.3">
   <WebRole name="WCFServiceWebRole1" vmsize="Small">
+    <Certificates>
+      <Certificate name="SampleCertificate"
+                   storeLocation="LocalMachine"
+                   storeName="My" />
+    </Certificates>
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -10,6 +15,7 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="HttpsIn" protocol="https" port="443" certificate="SampleCertificate"/>
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
